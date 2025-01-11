@@ -1,21 +1,21 @@
-import React from 'react';
+import React, {Component} from 'react';
 
 import "./TasksFilter.css"
 
-function TasksFilter () {
-return (
-    <ul className="filters">
+export default class TasksFilter extends Component {
+  render() {
+  return (
+      <ul className="filters">
             <li>
               <button className="selected">All</button>
             </li>
             <li>
               <button>Active</button>
-            </li>
+           </li>
             <li>
-              <button>Completed</button>
+          <button>Completed</button>
             </li>
-        </ul>
-);
+      </ul>
+ );
 }
-
-export default TasksFilter
+}
