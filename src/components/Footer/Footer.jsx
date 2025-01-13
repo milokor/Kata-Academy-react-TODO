@@ -18,7 +18,7 @@ export default class Footer extends Component {
       <footer className="footer">
         <span className="todo-count">{todoCount} items left</span>
         <TasksFilter
-          filterActive={filterActive}
+           filterActive={filterActive}
           filterAll={filterAll}
           filterComplete={filterComplete}
         />
