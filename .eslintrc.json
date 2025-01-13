@@ -1,0 +1,27 @@
+{
+    "env": {
+      "browser": true,
+      "es2021": true,
+      "node": true
+    },
+    "extends": [
+      "airbnb",
+      "airbnb/hooks",
+      "plugin:prettier/recommended"
+    ],
+    "parser": "babel-eslint-parser",
+    "parserOptions": {
+      "ecmaFeatures": {
+        "jsx": true
+      },
+      "ecmaVersion": 12,
+      "sourceType": "module"
+    },
+    "plugins": ["react", "react-hooks", "import", "jsx-a11y", "prettier"],
+    "rules": {
+      "prettier/prettier": ["error"],
+      "react/react-in-jsx-scope": "off",
+      "import/prefer-default-export": "off"
+    }
+  }
+  

@@ -1,25 +1,23 @@
-import React, { Component } from 'react';
-import './App.css';
-import TaskList from '../TaskList/TaskList';
-import Footer from '../Footer/Footer';
-import NewTaskForm from '../NewTaskForm/NewTaskForm';
+import React, { Component } from "react";
+import "./App.css";
+import TaskList from "../TaskList/TaskList";
+import Footer from "../Footer/Footer";
+import NewTaskForm from "../NewTaskForm/NewTaskForm";
 
 export default class App extends Component {
   state = {
     todoList: [],
     todoListOriginal: [],
-    filter: 'all',
-    idTaskEdit: null
+    filter: "all",
+    idTaskEdit: null,
   };
-
 
   filterList = (list = []) => {
     const { filter } = this.state;
-    if (filter === 'active') return list.filter((task) => !task.completed);
-    if (filter === 'completed') return list.filter((task) => task.completed);
+    if (filter === "active") return list.filter((task) => !task.completed);
+    if (filter === "completed") return list.filter((task) => task.completed);
     return list;
   };
-
 
   onDeletedTask = (id = 0) => {
     this.setState(({ todoListOriginal }) => {
@@ -31,11 +29,10 @@ export default class App extends Component {
     });
   };
 
-
   onStatusClick = (id = 0) => {
     this.setState(({ todoListOriginal }) => {
       const updatedList = todoListOriginal.map((task) =>
-        task.id === id ? { ...task, completed: !task.completed } : task
+        task.id === id ? { ...task, completed: !task.completed } : task,
       );
       return {
         todoList: this.filterList(updatedList),
@@ -56,7 +53,6 @@ export default class App extends Component {
     });
   };
 
-
   onClearComplete = () => {
     this.setState(({ todoListOriginal }) => {
       const updatedList = todoListOriginal.filter((task) => !task.completed);
@@ -70,32 +66,37 @@ export default class App extends Component {
   onChangeLabel = (id = 0) => {
     this.setState(({ todoListOriginal }) => {
       const idx = todoListOriginal.findIndex((task) => task.id === id);
-      const updatedList = structuredClone({...todoListOriginal[idx], name: todoListOriginal[idx].name})
-      return { 
-        todoList: todoListOriginal.with(idx, updatedList) , 
-        todoListOriginal: todoListOriginal.with(idx, updatedList)
-      };
-    });
-  }
-
-
-  filterActive = () => {
-    this.setState(({ todoListOriginal }) => {
-      const updatedFilterActive = todoListOriginal.filter((task) => !task.completed);
+      const updatedList = structuredClone({
+        ...todoListOriginal[idx],
+        name: todoListOriginal[idx].name,
+      });
       return {
-        todoList: updatedFilterActive,
-        filter: 'active', 
+        todoList: todoListOriginal.with(idx, updatedList),
+        todoListOriginal: todoListOriginal.with(idx, updatedList),
       };
     });
   };
 
+  filterActive = () => {
+    this.setState(({ todoListOriginal }) => {
+      const updatedFilterActive = todoListOriginal.filter(
+        (task) => !task.completed,
+      );
+      return {
+        todoList: updatedFilterActive,
+        filter: "active",
+      };
+    });
+  };
 
   filterComplete = () => {
     this.setState(({ todoListOriginal }) => {
-      const updatedFilterComplete = todoListOriginal.filter((task) => task.completed);
+      const updatedFilterComplete = todoListOriginal.filter(
+        (task) => task.completed,
+      );
       return {
         todoList: updatedFilterComplete,
-        filter: 'completed',
+        filter: "completed",
       };
     });
   };
@@ -104,7 +105,7 @@ export default class App extends Component {
     this.setState(({ todoListOriginal }) => {
       return {
         todoList: [...todoListOriginal],
-        filter: 'all',
+        filter: "all",
       };
     });
   };
@@ -112,46 +113,60 @@ export default class App extends Component {
   onChangeTask = (id = 0) => {
     this.setState(({ todoListOriginal }) => {
       const updatedList = todoListOriginal.map((task) =>
-        task.id === id ? { ...task, change: !task.change} : task
+        task.id === id ? { ...task, change: !task.change } : task,
       );
-      
+
       return {
         idTaskEdit: id,
         todoList: this.filterList(updatedList),
         todoListOriginal: updatedList,
       };
     });
-  }
+  };
   changeTask = (label = "") => {
-     if(this.state.idTaskEdit === null) return
-     this.setState(({ todoListOriginal, idTaskEdit}) => {
-      const updatedListName = todoListOriginal.map((task) => idTaskEdit === task.id ? {...task ,name: task.name = label, change: !task.change } : task)
+    if (this.state.idTaskEdit === null) return;
+    this.setState(({ todoListOriginal, idTaskEdit }) => {
+      const updatedListName = todoListOriginal.map((task) =>
+        idTaskEdit === task.id
+          ? { ...task, name: (task.name = label), change: !task.change }
+          : task,
+      );
       return {
         idTaskEdit: null,
         todoList: this.filterList(updatedListName),
         todoListOriginal: updatedListName,
       };
-
-     })
-     
-  }
+    });
+  };
 
   static defaultProps = {
     todoList: [],
-    todoListOriginal: []
-  }
-  
+    todoListOriginal: [],
+  };
+
   render() {
-    const {todoList, todoListOriginal} = this.state
+    const { todoList, todoListOriginal } = this.state;
     return (
       <section className="todoapp">
         <header className="header">
           <h1>todos</h1>
-          <NewTaskForm addTaskInput = {this.addTaskInput}/>
+          <NewTaskForm addTaskInput={this.addTaskInput} />
         </header>
         <section className="main">
-          <TaskList onDeletedTask={this.onDeletedTask} todoList={todoList} onStatusClick = {this.onStatusClick} onChangeTask = {this.onChangeTask} changeTask = {this.changeTask} />
-          <Footer todoListOriginal={todoListOriginal} onClearComplete = {this.onClearComplete} filterAll = {this.filterAll} filterComplete = {this.filterComplete} filterActive = {this.filterActive} />
+          <TaskList
+            onDeletedTask={this.onDeletedTask}
+            todoList={todoList}
+            onStatusClick={this.onStatusClick}
+            onChangeTask={this.onChangeTask}
+            changeTask={this.changeTask}
+          />
+          <Footer
+            todoListOriginal={todoListOriginal}
+            onClearComplete={this.onClearComplete}
+            filterAll={this.filterAll}
+            filterComplete={this.filterComplete}
+            filterActive={this.filterActive}
+          />
         </section>
       </section>
     );
