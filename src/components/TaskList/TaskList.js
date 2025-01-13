@@ -3,8 +3,21 @@ import React, { Component } from 'react';
 import Task from '../Task/Task';
 
 import './TaskList.css';
-
+import PropTypes from 'prop-types';
 export default class TaskList extends Component {
+
+  static defaultProps = {
+    todoList: [],
+    onDeletedTask: () => {},
+    onStatusClick: () => {},
+    onChangeTask: () => {},
+    changeTask: () => {}
+  }
+
+  static propTypes = {
+    todoList: PropTypes.array
+  }
+
   render() {
     const { todoList, onDeletedTask, onStatusClick, onChangeTask, changeTask} = this.props;
     const taskParse = todoList.map(({ id, name , completed, change }) => {

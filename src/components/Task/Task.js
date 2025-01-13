@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { formatDistanceToNow } from 'date-fns';
 import './Task.css';
-
+import PropTypes from 'prop-types';
 export default class Task extends Component {
   state = {
     label: '',
@@ -25,6 +25,20 @@ export default class Task extends Component {
         }
       })
     }
+  }
+
+  static defaultProps = {
+    name: '',
+    id: 0,
+    change: false,
+    todoList: [],
+  }
+
+  static propTypes = {
+    name: PropTypes.string,
+    id: PropTypes.number,
+    completed: PropTypes.bool,
+    change: PropTypes.bool
   }
 
   render() {

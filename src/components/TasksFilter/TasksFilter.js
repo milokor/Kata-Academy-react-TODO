@@ -6,9 +6,15 @@ export default class TasksFilter extends Component {
   state = {
     activeButton: 'All'
   };
-  onClickSelected = (buttonId) => {
+  onClickSelected = (buttonId = '') => {
     this.setState({ activeButton: buttonId });
   };
+
+  static defaultProps = {
+    filterActive: () => {},
+    filterAll: () => {},
+    filterComplete: () => {}
+  }
 
 
   render() {
