@@ -1,12 +1,13 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
-import "./TasksFilter.css";
+import './TasksFilter.css';
 
 export default class TasksFilter extends Component {
   state = {
-    activeButton: "All",
+    activeButton: 'All',
   };
-  onClickSelected = (buttonId = "") => {
+
+  onClickSelected = (buttonId = '') => {
     this.setState({ activeButton: buttonId });
   };
 
@@ -23,10 +24,10 @@ export default class TasksFilter extends Component {
         <li>
           <button
             type="submit"
-            className={this.state.activeButton === "All" ? "selected" : ""}
+            className={this.state.activeButton === 'All' ? 'selected' : ''}
             onClick={() => {
               filterAll();
-              this.onClickSelected("All");
+              this.onClickSelected('All');
             }}
           >
             All
@@ -35,10 +36,10 @@ export default class TasksFilter extends Component {
         <li>
           <button
             type="submit"
-            className={this.state.activeButton === "Active" ? "selected" : ""}
+            className={this.state.activeButton === 'Active' ? 'selected' : ''}
             onClick={() => {
               filterActive();
-              this.onClickSelected("Active");
+              this.onClickSelected('Active');
             }}
           >
             Active
@@ -47,12 +48,10 @@ export default class TasksFilter extends Component {
         <li>
           <button
             type="submit"
-            className={
-              this.state.activeButton === "Completed" ? "selected" : ""
-            }
+            className={this.state.activeButton === 'Completed' ? 'selected' : ''}
             onClick={() => {
               filterComplete();
-              this.onClickSelected("Completed");
+              this.onClickSelected('Completed');
             }}
           >
             Completed

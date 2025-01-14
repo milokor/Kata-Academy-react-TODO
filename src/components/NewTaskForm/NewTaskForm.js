@@ -1,10 +1,10 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
-import "./NewTaskForm.css";
+import './NewTaskForm.css';
 
 export default class NewTaskForm extends Component {
   state = {
-    label: "",
+    label: '',
   };
 
   onNewTask = (e) => {
@@ -21,11 +21,12 @@ export default class NewTaskForm extends Component {
       this.props.addTaskInput(this.state.label);
       this.setState(() => {
         return {
-          label: "",
+          label: '',
         };
       });
     }
   };
+
   render() {
     return (
       <form onSubmit={this.onSubmit}>

@@ -1,21 +1,24 @@
-import React, { Component } from "react";
-import "./App.css";
-import TaskList from "../TaskList/TaskList";
-import Footer from "../Footer/Footer";
-import NewTaskForm from "../NewTaskForm/NewTaskForm";
+import React, { Component } from 'react';
+import './App.css';
+import TaskList from '../TaskList/TaskList';
+import Footer from '../Footer/Footer';
+import NewTaskForm from '../NewTaskForm/NewTaskForm';
 
 export default class App extends Component {
-  state = {
-    todoList: [],
-    todoListOriginal: [],
-    filter: "all",
-    idTaskEdit: null,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      todoList: [],
+      todoListOriginal: [],
+      filter: 'all',
+      idTaskEdit: null,
+    };
+  }
 
   filterList = (list = []) => {
     const { filter } = this.state;
-    if (filter === "active") return list.filter((task) => !task.completed);
-    if (filter === "completed") return list.filter((task) => task.completed);
+    if (filter === 'active') return list.filter((task) => !task.completed);
+    if (filter === 'completed') return list.filter((task) => task.completed);
     return list;
   };
 
@@ -32,7 +35,7 @@ export default class App extends Component {
   onStatusClick = (id = 0) => {
     this.setState(({ todoListOriginal }) => {
       const updatedList = todoListOriginal.map((task) =>
-        task.id === id ? { ...task, completed: !task.completed } : task,
+        task.id === id ? { ...task, completed: !task.completed } : task
       );
       return {
         todoList: this.filterList(updatedList),
@@ -41,7 +44,7 @@ export default class App extends Component {
     });
   };
 
-  addTaskInput = (label = "") => {
+  addTaskInput = (label = '') => {
     const id = Math.floor(Math.random() * 9999);
     const newTask = { name: label, id, completed: false, change: false };
     this.setState(({ todoListOriginal }) => {
@@ -63,40 +66,22 @@ export default class App extends Component {
     });
   };
 
-  onChangeLabel = (id = 0) => {
-    this.setState(({ todoListOriginal }) => {
-      const idx = todoListOriginal.findIndex((task) => task.id === id);
-      const updatedList = structuredClone({
-        ...todoListOriginal[idx],
-        name: todoListOriginal[idx].name,
-      });
-      return {
-        todoList: todoListOriginal.with(idx, updatedList),
-        todoListOriginal: todoListOriginal.with(idx, updatedList),
-      };
-    });
-  };
-
   filterActive = () => {
     this.setState(({ todoListOriginal }) => {
-      const updatedFilterActive = todoListOriginal.filter(
-        (task) => !task.completed,
-      );
+      const updatedFilterActive = todoListOriginal.filter((task) => !task.completed);
       return {
         todoList: updatedFilterActive,
-        filter: "active",
+        filter: 'active',
       };
     });
   };
 
   filterComplete = () => {
     this.setState(({ todoListOriginal }) => {
-      const updatedFilterComplete = todoListOriginal.filter(
-        (task) => task.completed,
-      );
+      const updatedFilterComplete = todoListOriginal.filter((task) => task.completed);
       return {
         todoList: updatedFilterComplete,
-        filter: "completed",
+        filter: 'completed',
       };
     });
   };
@@ -105,16 +90,14 @@ export default class App extends Component {
     this.setState(({ todoListOriginal }) => {
       return {
         todoList: [...todoListOriginal],
-        filter: "all",
+        filter: 'all',
       };
     });
   };
 
   onChangeTask = (id = 0) => {
     this.setState(({ todoListOriginal }) => {
-      const updatedList = todoListOriginal.map((task) =>
-        task.id === id ? { ...task, change: !task.change } : task,
-      );
+      const updatedList = todoListOriginal.map((task) => (task.id === id ? { ...task, change: !task.change } : task));
 
       return {
         idTaskEdit: id,
@@ -123,13 +106,11 @@ export default class App extends Component {
       };
     });
   };
-  changeTask = (label = "") => {
-    if (this.state.idTaskEdit === null) return;
+
+  changeTask = (label = '') => {
     this.setState(({ todoListOriginal, idTaskEdit }) => {
       const updatedListName = todoListOriginal.map((task) =>
-        idTaskEdit === task.id
-          ? { ...task, name: (task.name = label), change: !task.change }
-          : task,
+        idTaskEdit === task.id ? { ...task, name: label, change: !task.change } : task
       );
       return {
         idTaskEdit: null,
@@ -137,11 +118,6 @@ export default class App extends Component {
         todoListOriginal: updatedListName,
       };
     });
-  };
-
-  static defaultProps = {
-    todoList: [],
-    todoListOriginal: [],
   };
 
   render() {
@@ -172,3 +148,8 @@ export default class App extends Component {
     );
   }
 }
+
+App.defaultProps = {
+  todoList: [],
+  todoListOriginal: [],
+};

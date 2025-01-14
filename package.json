@@ -10,12 +10,12 @@
     "prop-types": "^15.8.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "web-vitals": "^2.1.0"
   },
   "scripts": {
-    "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
-    "lint:fix": "eslint 'src/**/*.{js,jsx,ts,tsx}' --fix",
+   "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\"",
+    "lint:fix": "eslint \"src/**/*.{js,jsx,ts,tsx}\" --fix",
     "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx,json,css,md}'",
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -27,20 +27,27 @@
       "react-app",
       "react-app/jest",
       "airbnb",
-      "airbnb/hooks",
       "plugin:prettier/recommended"
     ],
-    "parser": "babel-eslint-parser",
+    "parser": "@babel/eslint-parser",
     "parserOptions": {
       "ecmaFeatures": {
         "jsx": true
       },
-      "ecmaVersion": 12,
+      "ecmaVersion": "latest",
       "sourceType": "module"
     },
-    "plugins": ["react", "react-hooks", "import", "jsx-a11y", "prettier"],
+    "plugins": [
+      "react",
+      "react-hooks",
+      "import",
+      "jsx-a11y",
+      "prettier"
+    ],
     "rules": {
-      "prettier/prettier": ["error"],
+      "prettier/prettier": [
+        "error"
+      ],
       "react/react-in-jsx-scope": "off",
       "import/prefer-default-export": "off"
     }
@@ -58,14 +65,17 @@
     ]
   },
   "devDependencies": {
-    "babel-eslint-parser": "^7.13.10",
+    "@babel/core": "^7.26.0",
+    "@babel/eslint-parser": "^7.26.5",
+    "@babel/preset-env": "^7.26.0",
+    "@babel/preset-react": "^7.26.3",
     "eslint": "8.57.1",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-jsx-a11y": "^6.10.2",
-    "eslint-plugin-react": "^7.37.4",
-    "eslint-plugin-react-hooks": "^5.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-react": "^7.37.3",
     "husky": "^9.1.7",
     "lint-staged": "^15.3.0",
     "prettier": "3.4.2"
@@ -75,5 +85,6 @@
       "eslint --fix",
       "prettier --write"
     ]
-  }
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }
