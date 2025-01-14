@@ -98,7 +98,6 @@ export default class App extends Component {
   onChangeTask = (id = 0) => {
     this.setState(({ todoListOriginal }) => {
       const updatedList = todoListOriginal.map((task) => (task.id === id ? { ...task, change: !task.change } : task));
-
       return {
         idTaskEdit: id,
         todoList: this.filterList(updatedList),
