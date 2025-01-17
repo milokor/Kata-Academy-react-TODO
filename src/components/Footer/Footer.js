@@ -19,3 +19,11 @@ export default class Footer extends Component {
     );
   }
 }
+
+Footer.defaultProps = {
+  todoListOriginal: () => {},
+  onClearComplete: () => {},
+  filterActive: () => {},
+  filterAll: () => {},
+  filterComplete: () => {},
+};

@@ -6,14 +6,6 @@ import './TaskList.css';
 import PropTypes from 'prop-types';
 
 export default class TaskList extends Component {
-  static defaultProps = {
-    todoList: [],
-    onDeletedTask: () => {},
-    onStatusClick: () => {},
-    onChangeTask: () => {},
-    changeTask: () => {},
-  };
-
   static propTypes = {
     todoList: PropTypes.array,
   };
@@ -38,3 +30,11 @@ export default class TaskList extends Component {
     return <ul className="todo-list">{taskParse}</ul>;
   }
 }
+
+TaskList.defaultProps = {
+  todoList: [],
+  onDeletedTask: () => {},
+  onStatusClick: () => {},
+  onChangeTask: () => {},
+  changeTask: () => {},
+};

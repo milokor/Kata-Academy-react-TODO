@@ -3,18 +3,15 @@ import React, { Component } from 'react';
 import './TasksFilter.css';
 
 export default class TasksFilter extends Component {
-  state = {
-    activeButton: 'All',
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      activeButton: 'All',
+    };
+  }
 
   onClickSelected = (buttonId = '') => {
     this.setState({ activeButton: buttonId });
-  };
-
-  static defaultProps = {
-    filterActive: () => {},
-    filterAll: () => {},
-    filterComplete: () => {},
   };
 
   render() {
@@ -61,3 +58,9 @@ export default class TasksFilter extends Component {
     );
   }
 }
+
+TasksFilter.defaultProps = {
+  filterActive: () => {},
+  filterAll: () => {},
+  filterComplete: () => {},
+};

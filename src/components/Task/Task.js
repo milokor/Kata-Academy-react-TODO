@@ -4,22 +4,17 @@ import './Task.css';
 import PropTypes from 'prop-types';
 
 export default class Task extends Component {
-  static defaultProps = {
-    name: '',
-    id: 0,
-    change: false,
-    todoList: [],
-  };
-
+  constructor(props) {
+    super(props);
+    this.state = {
+      label: '',
+    };
+  }
   static propTypes = {
     name: PropTypes.string,
     id: PropTypes.number,
     completed: PropTypes.bool,
     change: PropTypes.bool,
-  };
-
-  state = {
-    label: '',
   };
 
   onNewTaskChange = (e) => {
@@ -64,3 +59,10 @@ export default class Task extends Component {
     );
   }
 }
+
+Task.defaultProps = {
+  name: '',
+  id: 0,
+  change: false,
+  todoList: [],
+};

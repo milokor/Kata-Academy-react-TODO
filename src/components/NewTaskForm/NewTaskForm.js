@@ -3,9 +3,12 @@ import React, { Component } from 'react';
 import './NewTaskForm.css';
 
 export default class NewTaskForm extends Component {
-  state = {
-    label: '',
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      label: '',
+    };
+  }
 
   onNewTask = (e) => {
     this.setState(() => {
