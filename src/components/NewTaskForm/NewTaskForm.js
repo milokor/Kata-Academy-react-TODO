@@ -7,39 +7,61 @@ export default class NewTaskForm extends Component {
     super(props);
     this.state = {
       label: '',
+      minutes: '',
+      seconds: '',
     };
   }
 
-  onNewTask = (e) => {
-    this.setState(() => {
-      return {
-        label: e.target.value,
-      };
-    });
+  handleChange = (e) => {
+    const { name, value } = e.target;
+    this.setState({ [name]: value });
+  };
+
+  handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      this.onSubmit(e);
+    }
   };
 
   onSubmit = (e) => {
     e.preventDefault();
-    if (this.state.label.trim()) {
-      this.props.addTaskInput(this.state.label);
-      this.setState(() => {
-        return {
-          label: '',
-        };
-      });
+    let { label, minutes, seconds } = this.state;
+    if (minutes === '' && seconds === '') {
+      minutes = 30;
+      seconds = 0;
     }
+    if (isNaN(parseInt(seconds)) || isNaN(parseInt(minutes))) return;
+    if (!label.trim()) return;
+    this.props.addTaskInput(label, parseInt(minutes), parseInt(seconds));
+    this.setState({ label: '', seconds: '', minutes: '' });
   };
 
   render() {
     return (
-      <form onSubmit={this.onSubmit}>
+      <form className="new-todo-form" onSubmit={this.onSubmit}>
         <input
-          type="text"
+          name="label"
           className="new-todo"
-          placeholder="What needs to be done?"
-          autoFocus
+          placeholder="Task"
           value={this.state.label}
-          onChange={this.onNewTask}
+          onChange={this.handleChange}
+          onKeyDown={this.handleKeyDown}
+        />
+        <input
+          name="minutes"
+          className="new-todo-form__timer"
+          value={this.state.minutes}
+          onChange={this.handleChange}
+          placeholder="Min"
+          onKeyDown={this.handleKeyDown}
+        />
+        <input
+          name="seconds"
+          className="new-todo-form__timer"
+          value={this.state.seconds}
+          onChange={this.handleChange}
+          placeholder="Sec"
+          onKeyDown={this.handleKeyDown}
         />
       </form>
     );

@@ -11,8 +11,8 @@ export default class TaskList extends Component {
   };
 
   render() {
-    const { todoList, onDeletedTask, onStatusClick, onChangeTask, changeTask } = this.props;
-    const taskParse = todoList.map(({ id, name, completed, change }) => {
+    const { todoList, onDeletedTask, onStatusClick, onChangeTask, changeTask, onTimerOn, onTimerOff } = this.props;
+    const taskParse = todoList.map(({ id, name, completed, change, min, sec }) => {
       return (
         <Task
           key={id}
@@ -24,6 +24,10 @@ export default class TaskList extends Component {
           change={change}
           onChangeTask={() => onChangeTask(id)}
           changeTask={changeTask}
+          min={min}
+          sec={sec}
+          onTimerOn={() => onTimerOn(id)}
+          onTimerOff={() => onTimerOff(id)}
         />
       );
     });
@@ -37,4 +41,6 @@ TaskList.defaultProps = {
   onStatusClick: () => {},
   onChangeTask: () => {},
   changeTask: () => {},
+  onTimerOn: () => {},
+  onTimerOff: () => {},
 };

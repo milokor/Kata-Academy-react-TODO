@@ -12,6 +12,7 @@ export default class App extends Component {
       todoListOriginal: [],
       filter: 'all',
       idTaskEdit: null,
+      intervalActive: null,
     };
   }
 
@@ -44,9 +45,18 @@ export default class App extends Component {
     });
   };
 
-  addTaskInput = (label = '') => {
+  addTaskInput = (label = '', minutes = 0, seconds = 0) => {
     const id = Math.floor(Math.random() * 9999);
-    const newTask = { name: label, id, completed: false, change: false };
+    const newTask = {
+      name: label,
+      id,
+      completed: false,
+      change: false,
+      min: minutes,
+      sec: seconds,
+      timer: false,
+      flagInterval: false,
+    };
     this.setState(({ todoListOriginal }) => {
       const updatedList = [...todoListOriginal, newTask];
       return {
@@ -111,6 +121,7 @@ export default class App extends Component {
       const updatedListName = todoListOriginal.map((task) =>
         idTaskEdit === task.id ? { ...task, name: label, change: !task.change } : task
       );
+
       return {
         idTaskEdit: null,
         todoList: this.filterList(updatedListName),
@@ -119,6 +130,77 @@ export default class App extends Component {
     });
   };
 
+  onTimerOn = (id = 0) => {
+    this.setState(
+      ({ todoListOriginal, intervalActive }) => {
+        if (intervalActive) {
+          clearInterval(intervalActive);
+        }
+
+        const updatedList = todoListOriginal.map((task) =>
+          task.id === id ? { ...task, timer: !task.timer, flagInterval: false } : task
+        );
+
+        return {
+          todoList: this.filterList(updatedList),
+          todoListOriginal: updatedList,
+          intervalActive: null,
+        };
+      },
+      () => {
+        const targetTask = this.state.todoListOriginal.find((task) => task.id === id);
+
+        if (targetTask && targetTask.timer && !targetTask.flagInterval && !targetTask.completed) {
+          const intervalId = setInterval(() => {
+            this.setState(({ todoListOriginal }) => {
+              const updatedList = todoListOriginal.map((task) => {
+                if (task.id === id) {
+                  if (task.sec > 0) {
+                    return { ...task, sec: task.sec - 1, flagInterval: true };
+                  } else if (task.min > 0) {
+                    return { ...task, sec: 59, min: task.min - 1, flagInterval: true };
+                  } else {
+                    clearInterval(intervalId);
+                    return { ...task, timer: false, flagInterval: false };
+                  }
+                }
+                return task;
+              });
+
+              return {
+                todoList: this.filterList(updatedList),
+                todoListOriginal: updatedList,
+              };
+            });
+          }, 1000);
+
+          this.setState({ intervalActive: intervalId });
+        }
+      }
+    );
+  };
+  componentWillUnmount() {
+    if (this.state.intervalActive) {
+      clearInterval(this.state.intervalActive);
+    }
+  }
+
+  onTimerOff = (id = 0) => {
+    this.setState(({ todoListOriginal, intervalActive }) => {
+      if (intervalActive) {
+        clearInterval(intervalActive);
+      }
+      const updatedList = todoListOriginal.map((task) =>
+        task.id === id ? { ...task, timer: !task.timer, flagInterval: false } : task
+      );
+
+      return {
+        todoList: this.filterList(updatedList),
+        todoListOriginal: updatedList,
+        intervalActive: null,
+      };
+    });
+  };
   render() {
     const { todoList, todoListOriginal } = this.state;
     return (
@@ -134,6 +216,8 @@ export default class App extends Component {
             onStatusClick={this.onStatusClick}
             onChangeTask={this.onChangeTask}
             changeTask={this.changeTask}
+            onTimerOn={this.onTimerOn}
+            onTimerOff={this.onTimerOff}
           />
           <Footer
             todoListOriginal={todoListOriginal}
