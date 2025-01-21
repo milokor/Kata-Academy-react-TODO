@@ -54,7 +54,6 @@ export default class Task extends Component {
   };
 
   onChangeTaskEvent = (e) => {
-    e.preventDefault();
     if (this.state.label.trim()) {
       this.props.changeTask(this.state.label);
       this.setState({ label: '' });
