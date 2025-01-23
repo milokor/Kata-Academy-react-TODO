@@ -25,13 +25,19 @@ export default class Task extends Component {
     });
   };
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.name !== this.props.name) {
+      this.setState({ label: this.props.name });
+    }
+  }
+
   onChangeTaskEvent = (e) => {
     e.preventDefault();
     if (this.state.label.trim()) {
       this.props.changeTask(this.state.label);
       this.setState(() => {
         return {
-          label: '',
+          label: this.props.name,
         };
       });
     }
