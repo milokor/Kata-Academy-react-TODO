@@ -1,1 +1,1 @@
-https://kata-academy-react-todo1-9ygmnjm8d-milokors-projects.vercel.app/
+https://kata-academy-react-todo1-gumwk0t3m-milokors-projects.vercel.app/
