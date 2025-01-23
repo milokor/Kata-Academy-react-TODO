@@ -7,7 +7,7 @@ export default class Task extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      label: '',
+      label: this.props.name,
     };
     this.inputRef = React.createRef();
   }
@@ -37,6 +37,11 @@ export default class Task extends Component {
     document.removeEventListener('mousedown', this.handleOutsideClick);
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.name !== this.props.name) {
+      this.setState({ label: this.props.name });
+    }
+  }
   handleEscPress = (e) => {
     if (e.key === 'Escape' && this.props.change) {
       this.props.onChangeTask();
@@ -57,8 +62,7 @@ export default class Task extends Component {
     e.preventDefault();
     if (this.state.label.trim()) {
       this.props.changeTask(this.state.label);
-      this.setState({ label: '' });
-      this.props.onChangeTask();
+      this.setState({ label: this.props.name });
     }
   };
 
